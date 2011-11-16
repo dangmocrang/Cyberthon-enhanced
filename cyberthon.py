@@ -1,9 +1,9 @@
 #!/usr/bin/python
 #!/usr/bin/python
 #Program Name: Cyberthon (Python Cyberoam Client)
-#Coder AppleGrew
+#Original Coder AppleGrew // Modded by V1n1t
 #License GPL
-#Version 1.2
+#Version 1.3
 cyberroamIP = "172.16.1.1" #The IP of the Cyberoam site.
 cyberroamPort = "8090" #Set to "" if not using.
 username = "dcadmin" #Your username
