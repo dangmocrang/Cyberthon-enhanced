@@ -1,9 +1,10 @@
 #!/usr/bin/python
 #!/usr/bin/python
 #Program Name: Cyberthon (Python Cyberoam Client)
-#Original Coder AppleGrew // Modded by V1n1t
+#Original Coder AppleGrew // Modded by V1n1t 
+#Modified by siddharthaSahu for the new Cyberoam
 #License GPL
-#Version 1.3
+#Version 2.0
 import urllib, sys,time
 from xml.dom.minidom import parseString
 cyberroamIP = "172.16.1.1" #The IP of the Cyberoam site.
