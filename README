@@ -1,1 +1,8 @@
 This Project aims at creating a Python based Cyberoam client with added features.
+
+To use this script:
+
+1) edit the file and put in your username and password
+2) run `python cyberthon.py` in your terminal
+
+You will need to keep your terminal running to remian logged in.
