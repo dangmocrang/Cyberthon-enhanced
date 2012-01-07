@@ -1,8 +1,15 @@
-This Project aims at creating a Python based Cyberoam client with added features.
+This Project aims at creating a Python based Cyberoam client. 
 
 To use this script:
 
-1) edit the file and put in your username and password
-2) run `python cyberthon.py` in your terminal
-
-You will need to keep your terminal running to remain logged in.
+* install python 2.7
+* save this script file on your computer.
+* the first time, execute:
+        python cyberthon.py
+  on your terminal / command prompt.
+* on subsequent logins, execute:
+        python cyberthon.py -f PATH
+  where PATH is the file path to the config file eg: /home/cooluser/cyberoam.config
+  or C:\Users\user\cyberoam.config
+* you will remain logged in as long as the terminal is open.
+* Enjoy :)
