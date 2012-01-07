@@ -1,23 +1,64 @@
 #!/usr/bin/python
-#!/usr/bin/python
 #Program Name: Cyberthon (Python Cyberoam Client)
 #Original Coder AppleGrew // Modded by V1n1t 
 #Modified by siddharthaSahu for the new Cyberoam
 #License GPL
-#Version 2.0
-import urllib, sys,time
+#Version 2.5
+import urllib, sys,time, getpass,base64
 from xml.dom.minidom import parseString
-cyberroamIP = "172.16.1.1" #The IP of the Cyberoam site.
-cyberroamPort = "8090" #Set to "" if not using.
-cyberroamAddress = cyberroamIP
-if cyberroamPort != "":
-       cyberroamAddress = cyberroamAddress+":"+cyberroamPort
-username = "dcadmin" #Your username
-passwd = "passwd" #your password.
-sleepsec=180
+cyberoamAddress = "" #the cyberoam login page address
+username = "" #Your username
+passwd = "" #your password.
+sleepsec=180 #login status check every 3 minutes
+if(len(sys.argv)>1):
+	if(sys.argv[1]=="-f" and sys.argv[2]!=""):
+		try:
+			infile=open(sys.argv[2],"rU")
+		except IOError:
+			print "could not open file"
+			sys.exit(1)
+		a=infile.readline()
+		if(a==""):
+			print "error reading file"
+			sys.exit(1)
+		cyberoamAddress=a.rstrip("\r\n")
+		a=infile.readline()
+		if(a==""):
+			print "error reading file"
+			sys.exit(1)
+		username=a.rstrip("\r\n")
+		a=infile.readline()
+		if(a==""):
+			print "error reading file"
+			sys.exit(1)
+		passwd=base64.b64decode(a.rstrip("\r\n"))
+		infile.close()
+else:
+	a=raw_input("Enter full cyberoam site Address (Default: https://172.16.1.1:8090): ")
+	if(a==""):
+		a="https://172.16.1.1:8090"
+	cyberoamAddress=a
+	a=raw_input("Enter user name: ")
+	if(a==""):
+		print "empty input. program terminated"
+		sys.exit(1)
+	username=a
+	a=getpass.getpass("Enter password: ")
+	if(a==""):
+		print "empty input. program terminated"
+		sys.exit(1)
+	passwd=a
+	a=raw_input("Save to file ? [y/n]: ")
+	if(a=="y"):
+		try:
+			ofile=open("cyberoam.config","w")
+			ofile.write(cyberoamAddress+"\n"+username+"\n"+base64.b64encode(passwd))
+			ofile.close()
+		except IOError:
+			print "Error saving file"
 def login():
-       try:
-		file = urllib.urlopen("https://"+cyberroamAddress+"/login.xml","mode=191&username="+username+"&password="+passwd+"&a="+(str)((int)(time.time()*1000)))
+	try:
+		file = urllib.urlopen(cyberoamAddress+"/login.xml","mode=191&username="+username+"&password="+passwd+"&a="+(str)((int)(time.time()*1000)))
 	except IOError:
 		print "Error connecting"
 		sys.exit(1)
@@ -34,7 +75,7 @@ def login():
 
 def check():
 	try:
-		file = urllib.urlopen("https://"+cyberroamAddress+"/live?mode=192&username="+username+"&a="+(str)((int)(time.time()*1000)))
+		file = urllib.urlopen(cyberoamAddress+"/live?mode=192&username="+username+"&a="+(str)((int)(time.time()*1000)))
 	except IOError:
 		print "Error connecting"
 		sys.exit(1)
@@ -43,7 +84,6 @@ def check():
 	dom = parseString(data)
 	xmlTag = dom.getElementsByTagName('ack')[0].toxml()
 	message=xmlTag.replace('<ack>','').replace('</ack>','')
-	print "logged in"
 	return message
 	
 status=login()
