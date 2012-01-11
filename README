@@ -4,12 +4,9 @@ To use this script:
 
 * install python 2.7
 * save this script file on your computer.
-* the first time, execute:
-        python cyberthon.py
-  on your terminal / command prompt.
-* on subsequent logins, execute:
-        python cyberthon.py -f PATH
-  where PATH is the file path to the config file eg: /home/cooluser/cyberoam.config
-  or C:\Users\user\cyberoam.config
+* to login:
+        python cyberthon.py li
 * you will remain logged in as long as the terminal is open.
+* to logout, just end the running process (CTRL+C in linux) and run:
+        python cyberthon.py lo
 * Enjoy :)
